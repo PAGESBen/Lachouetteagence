@@ -26,6 +26,18 @@
     vertical-align: -15%
 }
 
+.fa-quote {
+    font-style: italic;
+}
+
+.fa-1-3x {
+    font-size: 15px
+}
+
+.fa-1-5x {
+    font-size: 18px
+}
+
 .fa-2x {
     font-size: 2em
 }

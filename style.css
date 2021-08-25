@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background: #FFF;
-    overflow-x: hidden;
+    /* overflow-x: hidden; supprimé pour voir la barre de défilement */ 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -28,7 +28,7 @@ a:hover {
 }
 
 .bloc {
-    width: 100%;
+    /* width: 100%; */
     clear: both;
     background: 50% 50% no-repeat;
     padding: 0 50px;
@@ -88,11 +88,13 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: -5;
 }
 
 .texture-paper::before {
     background: url("img/texture-paper.png");
     background-size: 280px 280px;
+    z-index: 0;
 }
 
 .b-parallax {
@@ -133,7 +135,7 @@ a:hover {
 .d-bloc h5 a,
 .d-bloc h6 a,
 .d-bloc p a {
-    color: rgba(255, 255, 255, .6);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .d-bloc .a-btn:hover,
@@ -317,7 +319,7 @@ a:hover {
 
 .navbar .nav {
     padding-top: 2px;
-    margin-right: -16px;
+    margin-right: 0;
     float: right;
     z-index: 1;
 }
@@ -560,6 +562,32 @@ a[data-lightbox]:hover img {
     animation-fill-mode: none;
 }
 
+/*ajouté pour voir le focus en navigation au clavier*/
+a[data-lightbox]:focus img {
+    opacity: 0.6;
+    -webkit-animation-fill-mode: none;
+    animation-fill-mode: none;
+}
+
+/*ajouté pour voir le focus en navigation au clavier*/
+a[data-lightbox]:focus::before {
+    content: "+";
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .6);
+    color: #FFF;
+    font-weight: 100;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
 #lightbox-modal {
     display: flex;
     align-items: center;
@@ -677,7 +705,8 @@ a {
 }
 
 p {
-    font-size: 11px;
+    font-size: 13px;
+    /*taille du texte augmentée de 11 à 13px*/
 }
 
 .tight-width-whitespace {
@@ -753,7 +782,7 @@ h4 {
 }
 
 .black-background {
-    background-color: rgba(165, 147, 99, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 40px 40px 40px 40px;
 }
 
@@ -771,21 +800,22 @@ h4 {
 }
 
 .bgc-atomic-tangerine {
-    background-color: #F3976C;
+    background-color: #2F2F2F;
 }
 
 .tc-white {
-    color: #F3976C!important;
+    color: #ffffff!important;
+    z-index: 2 !important;
 }
 
 .btn-atomic-tangerine {
-    background: #F3976C;
+    background: #CE2737;
     color: #FFFFFF!important;
 }
 
 .btn-atomic-tangerine:hover {
-    background: #c27956!important;
-    color: #FFFFFF!important;
+    background: #E8737E!important;
+    color: black!important;
 }
 
 .ltc-white {
@@ -810,7 +840,7 @@ h4 {
 }
 
 .bg-dots-bg {
-    background-image: url("img/dots-bg.png");
+    background-image: url("img/dots-bg.jpg");
 }
 
 .bg-lines-h2-bg {
@@ -822,7 +852,7 @@ h4 {
 }
 
 .bg-presentation {
-    background-image: url("img/image-de-presentation.bmp");
+    background-image: url("img/image-de-presentation.jpg");
 }
 
 @media (max-width: 1024px) {
@@ -848,13 +878,13 @@ h4 {
     }
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     .b-parallax {
         background-attachment: scroll;
     }
 }
 
-@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
+@media only screen and (min-width: 1024px) and (max-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
     .b-parallax {
         background-attachment: scroll;
     }
@@ -872,10 +902,13 @@ h4 {
         overflow-x: hidden;
         position: relative;
     }
-    .bloc {
+    /* .bloc {
         padding-left: constant(safe-area-inset-left);
         padding-right: constant(safe-area-inset-right);
-    }
+    } 
+    Ne passe pas au validateur w3c
+    */
+
     .bloc-group,
     .bloc-group .bloc {
         display: block;
@@ -884,8 +917,9 @@ h4 {
     .bloc-fill-screen .fill-bloc-top-edge,
     .bloc-fill-screen .fill-bloc-bottom-edge {
         padding: 0 20px;
-        padding-left: constant(safe-area-inset-left);
-        padding-right: constant(safe-area-inset-right);
+        /* padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right); 
+    = ne passe pas au validateur w3c*/
     }
 }
 
@@ -917,12 +951,14 @@ h4 {
         margin-left: 0;
         margin-right: 0;
     }
+
     .site-navigation {
         position: inherit;
         transform: none;
         -webkit-transform: none;
         -ms-transform: none;
     }
+    
     .nav > li {
         margin-top: 0;
         border-bottom: 1px solid rgba(0, 0, 0, .1);
@@ -1039,4 +1075,23 @@ h4 {
     .bloc-mob-center-text {
         text-align: center;
     }
+}
+
+
+/*ajouté pour que les focus soient plus visible lors de la navigation au clavier*/
+.btn-focuswhite:focus {
+    border: white 2px solid;
+}
+
+.btn-focusblack:focus {
+    border: black 2px solid;
+}
+
+.border-focusblack:focus {
+    border-bottom :  black 2px solid;
+    font-weight: bold;
+}
+
+.border-focus:focus {
+    border-bottom :  white 2px solid;
 }
